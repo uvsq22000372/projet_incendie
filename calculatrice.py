@@ -11,6 +11,7 @@ def rien():
 def push_1():
     global operande
     operande = operande*10 + 1
+    Ecran.config(text = operande)
 
 def push_2():
     global operande
@@ -82,7 +83,7 @@ bouton_divise = tk.Button(root, text = "/", font = ("helvetica", "10"), width = 
 bouton_divise.grid(column = 3, row = 4)
 bouton_virgule = tk.Button(root, text = ",", font = ("helvetica", "10"), width = 11, height = 7, command = rien, bg = "red", relief = "groove")
 bouton_virgule.grid(column = 2, row = 4)
-Ecran =tk.Label(root, text= "", font = ("helvetica", "10"), width = 48, height = 7,  bg = "black")
+Ecran =tk.Label(root, text= "", font = ("helvetica", "10"), width = 48, height = 7,  bg = "white")
 Ecran.grid(column = 0, row = 0, columnspan = 4)
 
 
