@@ -3,12 +3,19 @@ import tkinter as tk
 
 CANVAS_WIDTH, CANVAS_HEIGHT = 900, 900
 
+operande1 = 0
+
 def rien():
-    x
+    pass
+
+def push_1():
+    global operande1
+    operande1 = operande1*10 + 1
+
 
 root = tk.Tk()
 
-bouton_1 = tk.Button(root, text = "1", font = ("helvetica", "10"), command = rien, bg = "red", relief = "groove")
+bouton_1 = tk.Button(root, text = "1", font = ("helvetica", "10"), command = push_1, bg = "red", relief = "groove")
 bouton_1.grid(column = 0, row = 1)
 bouton_2 = tk.Button(root, text = "2", font = ("helvetica", "10"), command = rien, bg = "red", relief = "groove")
 bouton_2.grid(column = 1, row = 1)
