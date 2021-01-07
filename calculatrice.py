@@ -3,14 +3,14 @@ import tkinter as tk
 
 CANVAS_WIDTH, CANVAS_HEIGHT = 100, 40
 
-operande1 = 0
+operande = 0
 
 def rien():
     pass
 
 def push_1():
-    global operande1
-    operande1 = operande1*10 + 1
+    global operande
+    operande = operande*10 + 1
 
 
 root = tk.Tk()
