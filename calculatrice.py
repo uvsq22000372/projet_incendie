@@ -1,7 +1,7 @@
 import tkinter as tk
 
 
-CANVAS_WIDTH, CANVAS_HEIGHT = 900, 900
+CANVAS_WIDTH, CANVAS_HEIGHT = 100, 40
 
 def rien():
     x
@@ -38,6 +38,9 @@ bouton_divise = tk.Button(root, text = "/", font = ("helvetica", "10"), command 
 bouton_divise.grid(column = 3, row = 4)
 bouton_virgule = tk.Button(root, text = ",", font = ("helvetica", "10"), command = rien, bg = "red", relief = "groove")
 bouton_virgule.grid(column = 2, row = 4)
+
+canvas = tk.Canvas(root, width = CANVAS_WIDTH, height = CANVAS_HEIGHT, bg = "white", relief = "raised", borderwidth = 5)
+canvas.grid(column = 0, row = 0, columnspan = 4)
 
 
 
