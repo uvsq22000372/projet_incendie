@@ -4,50 +4,174 @@ import tkinter as tk
 CANVAS_WIDTH, CANVAS_HEIGHT = 100, 40
 
 operande = 0
+operande2 = 0
+nombreplus = 0
+nombremoins = 0
+nombrefois = 0
+nombredivise = 0
 
 def rien():
     pass
 
 def push_1():
     global operande
-    operande = operande*10 + 1
+    global operande2
+    global nombreplus
+    global nombremoins
+    global nombrefois
+    global nombredivise
+
+    if nombreplus == 0 or nombremoins == 0 or nombrefois == 0 or nombredivise == 0:
+        operande = operande*10 + 1
+    else:
+        operande2 = operande2*10 + 1
+    Ecran.config(text = operande)
+
 
 def push_2():
     global operande
-    operande = operande*10 + 2
+    global operande2
+    global nombreplus
+    global nombremoins
+    global nombrefois
+    global nombredivise
+
+    if nombreplus == 0 or nombremoins == 0 or nombrefois == 0 or nombredivise == 0:
+        operande = operande*10 + 2
+    else:
+        operande2 = operande2*10 + 2
+    Ecran.config(text = operande)
+
 
 def push_3():
     global operande
-    operande = operande*10 + 3
+    global operande2
+    global nombreplus
+    global nombremoins
+    global nombrefois
+    global nombredivise
+
+    if nombreplus == 0 or nombremoins == 0 or nombrefois == 0 or nombredivise == 0:
+        operande = operande*10 + 3
+    else:
+        operande2 = operande2*10 + 3
+    Ecran.config(text = operande)
+
 
 def push_4():
     global operande
-    operande = operande*10 + 4
+    global operande2
+    global nombreplus
+    global nombremoins
+    global nombrefois
+    global nombredivise
+
+    if nombreplus == 0 or nombremoins == 0 or nombrefois == 0 or nombredivise == 0:
+        operande = operande*10 + 4
+    else:
+        operande2 = operande2*10 + 4
+    Ecran.config(text = operande)
+
 
 def push_5():
     global operande
-    operande = operande*10 + 5
+    global operande2
+    global nombreplus
+    global nombremoins
+    global nombrefois
+    global nombredivise
 
+    if nombreplus == 0 or nombremoins == 0 or nombrefois == 0 or nombredivise == 0:
+        operande = operande*10 + 5
+    else:
+        operande2 = operande2*10 + 5
 def push_6():
     global operande
-    operande = operande*10 + 6
+    global operande2
+    global nombreplus
+    global nombremoins
+    global nombrefois
+    global nombredivise
 
+    if nombreplus == 0 or nombremoins == 0 or nombrefois == 0 or nombredivise == 0:
+        operande = operande*10 + 6
+    else:
+        operande2 = operande2*10 + 6
 def push_7():
     global operande
-    operande = operande*10 + 7
+    global operande2
+    global nombreplus
+    global nombremoins
+    global nombrefois
+    global nombredivise
+
+    if nombreplus == 0 or nombremoins == 0 or nombrefois == 0 or nombredivise == 0:
+        operande = operande*10 + 7
+    else:
+        operande2 = operande2*10 + 7
 
 def push_8():
     global operande
-    operande = operande*10 + 8
+    global operande2
+    global nombreplus
+    global nombremoins
+    global nombrefois
+    global nombredivise
+    if nombreplus == 0 or nombremoins == 0 or nombrefois == 0 or nombredivise == 0:
+        operande = operande*10 + 8
+    else:
+        operande2 = operande2*10 + 8
 
 def push_9():
     global operande
-    operande = operande*10 + 9
+    global operande2
+    global nombreplus
+    global nombremoins
+    global nombrefois
+    global nombredivise
+    if nombreplus == 0 or nombremoins == 0 or nombrefois == 0 or nombredivise == 0:
+        operande = operande*10 + 9
+    else:
+        operande2 = operande2*10 + 9
 
 def push_0():
     global operande
-    operande = operande*10 + 0
+    global operande2
+    global nombreplus
+    global nombremoins
+    global nombrefois
+    global nombredivise
+    if nombreplus == 0 or nombremoins == 0 or nombrefois == 0 or nombredivise == 0:
+        operande = operande*10 + 0
+    else:
+        operande2 = operande2*10 + 0
 
+def plus():
+    global operande
+    global nombreplus
+    nombreplus = operande
+
+def moins():
+    global operande
+    global nombremoins
+    nombremoins = operande
+
+def fois():
+    nombrefois = operande
+
+def divise():
+    nombredivise = operande
+
+def egal():
+    global operande
+    global operande2
+    global nombreplus
+    global nombremoins
+    global nombrefois
+    global nombredivise
+    if nombremoins != 0:
+        operande = operande - operande2
+        print (operande)
 
 
 root = tk.Tk()
@@ -74,7 +198,7 @@ bouton_0 = tk.Button(root, text = "0", font = ("helvetica", "10"), command = pus
 bouton_0.grid(column = 1, row = 4)
 bouton_plus = tk.Button(root, text = "+", font = ("helvetica", "10"), command = rien, bg = "red", relief = "groove")
 bouton_plus.grid(column = 3, row = 1)
-bouton_moins = tk.Button(root, text = "-", font = ("helvetica", "10"), command = rien, bg = "red", relief = "groove")
+bouton_moins = tk.Button(root, text = "-", font = ("helvetica", "10"), command = moins, bg = "red", relief = "groove")
 bouton_moins.grid(column = 3, row = 2)
 bouton_fois = tk.Button(root, text = "x", font = ("helvetica", "10"), command = rien, bg = "red", relief = "groove")
 bouton_fois.grid(column = 3, row = 3)
@@ -82,9 +206,12 @@ bouton_divise = tk.Button(root, text = "/", font = ("helvetica", "10"), command 
 bouton_divise.grid(column = 3, row = 4)
 bouton_virgule = tk.Button(root, text = ",", font = ("helvetica", "10"), command = rien, bg = "red", relief = "groove")
 bouton_virgule.grid(column = 2, row = 4)
+bouton_egal = tk.Button(root, text = "=", font = ("helvetica", "10"), command = egal, bg = "red", relief = "groove")
+bouton_egal.grid(column = 0, row = 4)
 
-canvas = tk.Canvas(root, width = CANVAS_WIDTH, height = CANVAS_HEIGHT, bg = "white", relief = "raised", borderwidth = 5)
-canvas.grid(column = 0, row = 0, columnspan = 4)
+Ecran =tk.Label(root, text= "", font = ("helvetica", "10"), width = 48, height = 7,  bg = "white")
+Ecran.grid(column = 0, row = 0, columnspan = 4)
+
 
 
 
