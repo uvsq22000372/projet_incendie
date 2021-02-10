@@ -1,3 +1,3 @@
-# td_git2
+# projet_incendie
 
-Ce programme à pour but de créer une calculatrice simple réalisée en python avec Tkinter
+Ce programme à pour but de créer une simulation de propagation d'incendie réalisée en python avec Tkinter
