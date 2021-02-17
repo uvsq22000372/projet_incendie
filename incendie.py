@@ -23,6 +23,10 @@ nombre_eau = 0
 nombre_prairie = 0
 nombre_foret = 0
 
+#definition des fonctions
+def eau():
+    
+
 
 CANVAS_WIDTH, CANVAS_HEIGHT = LARGEUR, HAUTEUR
 
