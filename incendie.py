@@ -15,7 +15,7 @@ import random
 #definition constantes
 LARGEUR = 500
 HAUTEUR = 500
-DUREE_FEU = 40 #secondes
+DUREE_FEU = 30 #secondes
 DUREE_CENDRES = 80 #secondes
 
 #definition variables globales 
