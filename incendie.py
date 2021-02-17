@@ -10,10 +10,21 @@
 
 #import librairies
 import tkinter as tk
+import random
 
 #definition constantes
+LARGEUR = 500
+HAUTEUR = 500
+DUREE_FEU = 40 #secondes
+DUREE_CENDRES = 80 #secondes
 
-CANVAS_WIDTH, CANVAS_HEIGHT = 500, 500
+#definition variables globales 
+nombre_eau = 0
+nombre_prairie = 0
+nombre_foret = 0
+
+
+CANVAS_WIDTH, CANVAS_HEIGHT = LARGEUR, HAUTEUR
 
 
 
