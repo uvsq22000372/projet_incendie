@@ -6,3 +6,5 @@
 # https://github.com/uvsq22000372/projet_incendie
 #########################################
 import tkinter as tk
+
+print("oui")
