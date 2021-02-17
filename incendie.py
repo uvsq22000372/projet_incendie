@@ -1,3 +1,4 @@
+#info groupe
 #########################################
 # groupe MPCI 3
 # Lalasoa RATOVONDRANTO
@@ -7,8 +8,10 @@
 # https://github.com/uvsq22000372/projet_incendie
 #########################################
 
-
+#import librairies
 import tkinter as tk
+
+#definition constantes
 
 CANVAS_WIDTH, CANVAS_HEIGHT = 500, 500
 
