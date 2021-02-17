@@ -3,7 +3,7 @@
 # groupe MPCI 3
 # Lalasoa RATOVONDRANTO
 # Ahmadou Bamba SOIM
-# Maxime DANEVILLE
+# Maxime DANNEVILLE
 # Elias SAUVAGE
 # https://github.com/uvsq22000372/projet_incendie
 #########################################
