@@ -27,6 +27,7 @@ nombre_eau = 0
 nombre_prairie = 0
 nombre_foret = 0
 l_carré = []
+Couleur = ["dodger blue", "dodger blue", "green4", "green4", "green4", "green4", "green4", "yellow","yellow", "yellow" ]
 
 
 #definition des fonctions
@@ -34,7 +35,7 @@ def Carré():
     l_carré = []
     x0, y0, x1, y1 = 0, 0, COTE, COTE
     while y0 <= HAUTEUR and x1 <= LARGEUR:
-        carré = canvas.create_rectangle(x0, y0, x1, y1,fill=GetColor(rd.randint(0, 255), rd.randint(0, 255), rd.randint(0, 255)))
+        carré = canvas.create_rectangle(x0, y0, x1, y1,fill=Couleur[rd.randint(0, 9)])
         l_carré.append(carré)
         x0 += COTE
         x1 += COTE
