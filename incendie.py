@@ -13,10 +13,14 @@ import tkinter as tk
 import random
 
 #definition constantes
+
+COUL_FOND = "grey20"
+COULEUR_QUADR = "grey60"
 LARGEUR = 500
 HAUTEUR = 500
-DUREE_FEU = 40 #secondes
-DUREE_CENDRES = 80 #secondes
+COTE = 5
+DUREE_FEU = 4 #secondes
+DUREE_CENDRES = 10 #secondes
 
 #definition variables globales 
 nombre_eau = 0
@@ -24,22 +28,48 @@ nombre_prairie = 0
 nombre_foret = 0
 
 #definition des fonctions
-def eau():
+def quadrillage():
+    '''Affiche un quadrillage constitué de carrés de côtés COTE'''
+    y = 0
+    while y <= HAUTEUR:
+        canvas.create_line((0, y), (LARGEUR, y), fill=COULEUR_QUADR)
+        y += COTE
+    x = 0
+    while x <= LARGEUR:
+        canvas.create_line((x, 0), (x, HAUTEUR), fill=COULEUR_QUADR)
+        x += COTE
+
+def xy_to_cl(x, y):
+    '''Retourne la colonne et la ligne du tableau correspondant aux coordonnées (x, y) du canevas'''
+    #à faire
+    return 0, 0
+
+def random_terrain():
     pass
 
 
-CANVAS_WIDTH, CANVAS_HEIGHT = LARGEUR, HAUTEUR
 
 
 
 
 
+########################
+# programme principal
+
+racine = tk.Tk()
+racine.title("Simulation incendie")
+# création des widgets
+canvas = tk.Canvas(racine, bg=COUL_FOND, width=LARGEUR, height=HAUTEUR)
+
+# positionnement
+canvas.grid()
+
+# gestion des événements
+canvas.bind("<Button-1>")
+
+# autres fonctions
+quadrillage()
 
 
-root = tk.Tk()
-root.title("Simulation incendie")
-
-canvas = tk.Canvas(root, width = CANVAS_WIDTH, height = CANVAS_HEIGHT, bg = "black", relief = "raised", borderwidth = 5)
-canvas.grid(column = 1, row = 1, rowspan = 3, columnspan = 2)
-
-root.mainloop()
+# boucle principal
+racine.mainloop()
