@@ -10,47 +10,52 @@
 
 #import librairies
 import tkinter as tk
-import random
+import random as rd
 
 #definition constantes
 
 COUL_FOND = "grey20"
 COULEUR_QUADR = "grey60"
-LARGEUR = 500
-HAUTEUR = 500
+LARGEUR = 800
+HAUTEUR = 800
 COTE = 5
-DUREE_FEU = 4 #secondes
-DUREE_CENDRES = 10 #secondes
+DUREE_FEU = 4000 # en ms
+DUREE_CENDRES = 10000 # en ms
 
 #definition variables globales 
 nombre_eau = 0
 nombre_prairie = 0
 nombre_foret = 0
+l_carré = []
+
 
 #definition des fonctions
-def quadrillage():
-    '''Affiche un quadrillage constitué de carrés de côtés COTE'''
-    y = 0
-    while y <= HAUTEUR:
-        canvas.create_line((0, y), (LARGEUR, y), fill=COULEUR_QUADR)
-        y += COTE
-    x = 0
-    while x <= LARGEUR:
-        canvas.create_line((x, 0), (x, HAUTEUR), fill=COULEUR_QUADR)
-        x += COTE
-
-def xy_to_cl(x, y):
-    '''Retourne la colonne et la ligne du tableau correspondant aux coordonnées (x, y) du canevas'''
-    #à faire
-    return 0, 0
+def Carré():
+    l_carré = []
+    x0, y0, x1, y1 = 0, 0, COTE, COTE
+    while y0 <= HAUTEUR and x1 <= LARGEUR:
+        carré = canvas.create_rectangle(x0, y0, x1, y1,fill=GetColor(rd.randint(0, 255), rd.randint(0, 255), rd.randint(0, 255)))
+        l_carré.append(carré)
+        x0 += COTE
+        x1 += COTE
+        if x0 == LARGEUR:
+            x0 = 0
+            x1 = COTE 
+            y0 += COTE
+            y1 += COTE
+    print(l_carré)
+        
 
 def random_terrain():
     pass
+def GetColor(r, g, b):
+    """ Retourne une couleur à partir de ses composantes r, g, b entre 0 et 255"""
+    return '#{:02x}{:02x}{:02x}'.format(r, g, b)
 
 
 
-
-
+# Idée a développer plus tard 
+    # if carré x=mort, l_carré.delete[x] (évitez les surcharges)
 
 
 ########################
@@ -59,7 +64,7 @@ def random_terrain():
 racine = tk.Tk()
 racine.title("Simulation incendie")
 # création des widgets
-canvas = tk.Canvas(racine, bg=COUL_FOND, width=LARGEUR, height=HAUTEUR)
+canvas = tk.Canvas(racine, bg=COUL_FOND, width=LARGEUR, height=HAUTEUR, bd = -2)
 
 # positionnement
 canvas.grid()
@@ -68,7 +73,7 @@ canvas.grid()
 canvas.bind("<Button-1>")
 
 # autres fonctions
-quadrillage()
+Carré()
 
 
 # boucle principal
