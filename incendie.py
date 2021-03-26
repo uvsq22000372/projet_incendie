@@ -23,20 +23,25 @@ DUREE_FEU = 4000 # en ms
 DUREE_CENDRES = 10000 # en ms
 
 #definition variables globales 
-nombre_eau = 0
-nombre_prairie = 0
-nombre_foret = 0
-l_carré = []
+nombre_eau = []
+nombre_prairie = []
+nombre_foret = []
+
 Couleur = ["dodger blue", "dodger blue", "green4", "green4", "green4", "green4", "green4", "yellow","yellow", "yellow" ]
 
 
 #definition des fonctions
 def Carré():
-    l_carré = []
     x0, y0, x1, y1 = 0, 0, COTE, COTE
     while y0 <= HAUTEUR and x1 <= LARGEUR:
-        carré = canvas.create_rectangle(x0, y0, x1, y1,fill=Couleur[rd.randint(0, 9)])
-        l_carré.append(carré)
+        i = rd.randint(0, 9)
+        carré = canvas.create_rectangle(x0, y0, x1, y1,fill=Couleur[i])
+        if i >= 0 and i < 2:
+            nombre_eau.append(carré)
+        elif i >= 2 and i < 6:
+            nombre_foret.append(carré)
+        elif i >= 6 and i < 10:
+            nombre_prairie.append(carré)
         x0 += COTE
         x1 += COTE
         if x0 == LARGEUR:
@@ -44,7 +49,9 @@ def Carré():
             x1 = COTE 
             y0 += COTE
             y1 += COTE
-    print(l_carré)
+    print(nombre_eau)
+    print(nombre_foret)
+    print(nombre_prairie)
         
 
 def random_terrain():
