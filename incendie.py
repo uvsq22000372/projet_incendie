@@ -55,6 +55,7 @@ def Carré():
 
         
 
+
 def random_terrain():
     global nombre_eau
     global nombre_terre
