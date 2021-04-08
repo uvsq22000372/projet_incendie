@@ -1,3 +1,3 @@
-# projet_incendie
+# projet_terrain
 
-Ce programme à pour but de créer une simulation de propagation d'incendie réalisée en python avec Tkinter
+Ce programme à pour but de créer un terrain de jeu vidéo aléatoire, réalisé en python avec Tkinter
