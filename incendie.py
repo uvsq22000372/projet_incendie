@@ -37,13 +37,6 @@ def Carré():
     while y0 < HAUTEUR and x1 <= LARGEUR:
         carré = canvas.create_rectangle(x0, y0, x1, y1,fill=coul_eau[0])
         l_carré.append(carré)
-        nombre_eau.append(carré)
-        #if i >= 0 and i < 2:
-        #   nombre_eau.append(carré)
-        #elif i >= 2 and i < 6:
-        #    nombre_foret.append(carré)
-        #elif i >= 6 and i < 10:
-        #    nombre_prairie.append(carré)
         x0 += COTE
         x1 += COTE
         if x0 == LARGEUR:
@@ -51,7 +44,6 @@ def Carré():
             x1 = COTE 
             y0 += COTE
             y1 += COTE
-    print(l_carré)
 
         
 
@@ -60,18 +52,26 @@ def random_terrain():
     global nombre_eau
     global nombre_terre
     global x
-    for i in (0, n):
-        for i in l_carré:
+    for i in range(0, n):
+        for y in range(len(l_carré)):
             r = rd.randint(0, 1)
             if r == 0:
-                pass
-            else:
-                canvas.itemconfig((l_carré[i]) , fill=coul_terre[0])
-                nombre_terre.append(l_carré[i])
-                del nombre_eau[i - x]
-                x += 1
-        print(nombre_eau)
-        print(nombre_terre)
+                canvas.itemconfig((l_carré[y]) , fill=coul_terre[0])
+                nombre_terre.append(l_carré[y])
+        print(l_carré)
+    print(nombre_terre)
+
+
+    nombre_terre = sorted(nombre_terre)
+    for i in nombre_terre:
+        if nombre_terre.count(i) > 1:
+            for z in range(0, (nombre_terre.count(i) - 1)):
+                nombre_terre.remove(i)
+    print(nombre_terre)
+            
+
+    
+        
 
 
 def GetColor(r, g, b):
@@ -82,7 +82,10 @@ def GetColor(r, g, b):
 
 # Idée a développer plus tard 
     # if carré x=mort, l_carré.delete[x] (évitez les surcharges)
-
+    # 
+    # utiliser "in" pour voir si c'est un bloc de terre
+    #
+    # 
 
 ########################
 # programme principal
