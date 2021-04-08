@@ -49,25 +49,18 @@ def Carré():
 
 
 def random_terrain():
-    global nombre_eau
     global nombre_terre
-    global x
-    for i in range(0, n):
-        for y in range(len(l_carré)):
-            r = rd.randint(0, 1)
-            if r == 0:
-                canvas.itemconfig((l_carré[y]) , fill=coul_terre[0])
-                nombre_terre.append(l_carré[y])
-        print(l_carré)
-    print(nombre_terre)
-
+    for i in range(len(l_carré)):
+        r = rd.randint(0, 1)
+        if r == 0:
+            canvas.itemconfig((l_carré[i]) , fill=coul_terre[0])
+            nombre_terre.append(l_carré[i])
 
     nombre_terre = sorted(nombre_terre)
     for i in nombre_terre:
         if nombre_terre.count(i) > 1:
-            for z in range(0, (nombre_terre.count(i) - 1)):
+            for y in range(0, (nombre_terre.count(i) - 1)):
                 nombre_terre.remove(i)
-    print(nombre_terre)
             
 
     
