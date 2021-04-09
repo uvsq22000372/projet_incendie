@@ -41,7 +41,7 @@ def Carré():
     global nombre_eau
     x0, y0, x1, y1 = 0, 0, COTE, COTE
     while y0 < HAUTEUR and x1 <= LARGEUR:
-        carré = canvas.create_rectangle(x0, y0, x1, y1,fill=coul_eau[0])
+        carré = canvas.create_rectangle(x0, y0, x1, y1,fill=coul_eau[0], width = 0)
         l_carré.append(carré)
         nombre_eau.append(carré)
         x0 += COTE
