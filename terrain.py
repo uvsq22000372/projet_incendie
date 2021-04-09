@@ -64,11 +64,12 @@ def random_terrain():
             nombre_eau.remove(l_carré[i])
     nombre_terre = sorted(nombre_terre)
     #print(nombre_terre)
-    print(nombre_eau)
+    #print(nombre_eau)
             
 
 def nombre_voisins():
     """retourne le nombre de cases autour d'une case i"""
+    global counter
     for i in range(len(nombre_eau)):
         if (l_carré[i+k]) in nombre_eau:
             voisins.append(i)
@@ -86,11 +87,17 @@ def nombre_voisins():
             voisins.append(i)
         if (l_carré[i-50-k]) in nombre_eau:
             voisins.append(i)
+    counter=collections.Counter(voisins)
+    return voisins
     
 
 def automate():
-    counter=collections.Counter(voisins)
-    print(counter)
+    v = nombre_voisins()
+    global counter
+    if counter >= 5:
+        print("yes")
+    #counter=collections.Counter(voisins)
+    #print(counter)
 
 
 
