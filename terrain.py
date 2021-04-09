@@ -5,13 +5,12 @@
 # Lalasoa RATOVONDRANTO
 # Maxime DANNEVILLE
 # Elias SAUVAGE
-# https://github.com/uvsq22000372/projet_incendie
+# https://github.com/uvsq22000372/projet_terrain
 #########################################
 
 #import librairies
 import tkinter as tk
 import random as rd
-import collections
 
 #definition constantes
 
@@ -21,7 +20,6 @@ LARGEUR = 650
 HAUTEUR = 650
 COTE = 13
 n = 4
-x = 0
 k = 1
 counter = 0
 T = 6
@@ -30,7 +28,6 @@ T = 6
 nombre_eau = []
 nombre_terre = []
 l_carré = []
-voisins = []
 
 coul_eau = ["RoyalBlue1"]
 coul_terre = ["salmon4"]
