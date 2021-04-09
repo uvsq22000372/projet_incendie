@@ -11,21 +11,24 @@
 #import librairies
 import tkinter as tk
 import random as rd
+import collections
 
 #definition constantes
 
 COUL_FOND = "grey20"
 COULEUR_QUADR = "grey60"
-LARGEUR = 1000
-HAUTEUR = 1000
-COTE = 20
+LARGEUR = 650
+HAUTEUR = 650
+COTE = 13
 n = 4
 x = 0
+k = 1
 
 #definition variables globales 
 nombre_eau = []
 nombre_terre = []
 l_carré = []
+voisins = []
 
 coul_eau = ["RoyalBlue1"]
 coul_terre = ["salmon4"]
@@ -33,10 +36,12 @@ coul_terre = ["salmon4"]
 
 #definition des fonctions
 def Carré():
+    global nombre_eau
     x0, y0, x1, y1 = 0, 0, COTE, COTE
     while y0 < HAUTEUR and x1 <= LARGEUR:
         carré = canvas.create_rectangle(x0, y0, x1, y1,fill=coul_eau[0])
         l_carré.append(carré)
+        nombre_eau.append(carré)
         x0 += COTE
         x1 += COTE
         if x0 == LARGEUR:
@@ -50,21 +55,42 @@ def Carré():
 
 def random_terrain():
     global nombre_terre
+    global nombre_eau
     for i in range(len(l_carré)):
         r = rd.randint(0, 1)
         if r == 0:
             canvas.itemconfig((l_carré[i]) , fill=coul_terre[0])
             nombre_terre.append(l_carré[i])
-
+            nombre_eau.remove(l_carré[i])
     nombre_terre = sorted(nombre_terre)
-    for i in nombre_terre:
-        if nombre_terre.count(i) > 1:
-            for y in range(0, (nombre_terre.count(i) - 1)):
-                nombre_terre.remove(i)
+    #print(nombre_terre)
+    #print(nombre_eau)
             
 
-    
-        
+def nombre_voisins():
+    """rettourne le nombre de cases autour d'une case i"""
+    for i in range(len(nombre_eau)):
+        if (i + k) // (nombre_eau[i]) == 0:
+            voisins.append(i)
+        if (i - k) // (nombre_eau[i]) == 0:
+            voisins.append(i)
+        if (i + 50) // (nombre_eau[i]) == 0:
+            voisins.append(i)
+        if (i - 50) // (nombre_eau[i]) == 0:
+            voisins.append(i)
+        if (i + 50 + k) // (nombre_eau[i]) == 0:
+            voisins.append(i)
+        if (i + 50 - k) // (nombre_eau[i]) == 0:
+            voisins.append(i)
+        if (i - 50 - k) // (nombre_eau[i]) == 0:
+            voisins.append(i)
+        if (i - 50 + k) // (nombre_eau[i]) == 0:
+            voisins.append(i)
+
+def automate():
+    counter=collections.Counter(voisins)
+    print(counter)
+
 
 
 def GetColor(r, g, b):
@@ -84,7 +110,7 @@ def GetColor(r, g, b):
 # programme principal
 
 racine = tk.Tk()
-racine.title("Simulation incendie")
+racine.title("Generation de terrain")
 # création des widgets
 canvas = tk.Canvas(racine, bg=COUL_FOND, width=LARGEUR, height=HAUTEUR, bd = -2)
 
@@ -97,6 +123,8 @@ canvas.bind("<Button-1>")
 # autres fonctions
 Carré()
 random_terrain()
+nombre_voisins()
+automate()
 
 
 # boucle principal
