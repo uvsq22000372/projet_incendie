@@ -24,6 +24,7 @@ n = 4
 x = 0
 k = 1
 counter = 0
+T = 6
 
 #definition variables globales 
 nombre_eau = []
@@ -58,182 +59,504 @@ def random_terrain():
     global nombre_terre
     global nombre_eau
     for i in range(len(l_carré)):
-        r = rd.randint(0, 2)
+        r = rd.randint(0, 1)
         if r != 0:
             canvas.itemconfig((l_carré[i]) , fill=coul_terre[0])
             nombre_terre.append(l_carré[i])
             nombre_eau.remove(l_carré[i])
+    
     nombre_terre = sorted(nombre_terre)
-    #print(nombre_terre)
-    #print(nombre_eau)
+    for i in nombre_terre:
+        if nombre_terre.count(i) > 1:
+            for y in range(0, (nombre_terre.count(i) - 1)):
+                nombre_terre.remove(i)
+
+    nombre_eau = sorted(nombre_eau)
+    for i in nombre_eau:
+        if nombre_eau.count(i) > 1:
+            for y in range(0, (nombre_eau.count(i) - 1)):
+                nombre_eau.remove(i)
             
 
 def nombre_voisins():
     """retourne le nombre de cases autour d'une case i"""
     global counter
+    global nombre_terre
+    global nombre_eau
     for y in range(0,n):
-        for i in range(len(nombre_eau)):
-            if int(l_carré[i]) == 1:
-
-                if (l_carré[i+k]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1                
-                if (l_carré[i+50]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1                
-                if (l_carré[i+50+k]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
+        for i in range(len(l_carré)):
 
 
-            if int(l_carré[i]) == 50:
-
-                if (l_carré[i-k]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1                
-                if (l_carré[i+50]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1                
-                if (l_carré[i+50-k]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
-
-
-            if int(l_carré[i]) == 2401:
-
-                if (l_carré[i+k]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
-                if (l_carré[i-50]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
-                if (l_carré[i-50+k]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
-
-
-            if int(l_carré[i]) == 2450:
-
-                if (l_carré[i-k]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
-                if (l_carré[i-50]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1               
-                if (l_carré[i-50-k]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
+            if l_carré[i] in nombre_eau:
             
-            if int(l_carré[i]) <= 50:
+                if int(l_carré[i]) == 1:
 
-                if (l_carré[i+k]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
-                if (l_carré[i-k]) in nombre_eau:
+                    if (l_carré[i+k]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1                
+                    if (l_carré[i+50]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1                
+                    if (l_carré[i+50+k]) in nombre_eau:
                         voisins.append(i)
                         counter += 1
-                if (l_carré[i+50]) in nombre_eau:
+
+                    if counter >= T:
+                        counter = 0
+                    if counter < T:
+                        canvas.itemconfig((l_carré[i]) , fill=coul_terre[0])
+                        nombre_terre.append(l_carré[i])
+                        nombre_eau.remove(l_carré[i])
+                        print(counter, "t")
+                        counter = 0
+
+                if int(l_carré[i]) < 50 and int(l_carré[i]) != 1:
+
+                    if (l_carré[i+k]) in nombre_eau:
                         voisins.append(i)
                         counter += 1
-                if (l_carré[i+50+k]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
-                if (l_carré[i+50-k]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
+                    if (l_carré[i-k]) in nombre_eau:
+                            voisins.append(i)
+                            counter += 1
+                    if (l_carré[i+50]) in nombre_eau:
+                            voisins.append(i)
+                            counter += 1
+                    if (l_carré[i+50+k]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i+50-k]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1
 
+                    if counter >= T:
+                        counter = 0
+                    if counter < T:
+                        canvas.itemconfig((l_carré[i]) , fill=coul_terre[0])
+                        nombre_terre.append(l_carré[i])
+                        nombre_eau.remove(l_carré[i])
+                        print(counter, "t")
+                        counter = 0
+
+                if int(l_carré[i]) == 50:
+
+                    if (l_carré[i-k]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1                
+                    if (l_carré[i+50]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1                
+                    if (l_carré[i+50-k]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1
+
+                    if counter >= T:
+                        counter = 0
+                    if counter < T:
+                        canvas.itemconfig((l_carré[i]) , fill=coul_terre[0])
+                        nombre_terre.append(l_carré[i])
+                        nombre_eau.remove(l_carré[i])
+                        print(counter, "t")
+                        counter = 0
                 
-            if int(l_carré[i]) > 2450:
 
-                if (l_carré[i+k]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
-                if (l_carré[i-k]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
-                if (l_carré[i-50]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1                
-                if (l_carré[i-50-k]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
-                if (l_carré[i-50+k]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1               
-            
+                if int((l_carré[i]) - 1) % 50 != 0 and int(l_carré[i]) % 50 != 0 and int(l_carré[i]) < 2450 and int(l_carré[i]) > 50:
 
-            if int(l_carré[i]) % 50 == 0:
+                    if (l_carré[i+k]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i-k]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i-50]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i+50]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i-50+k]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i+50+k]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i-50-k]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i+50-k]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1
+                    
+                    if counter >= T:
+                        counter = 0
+                    if counter < T:
+                        canvas.itemconfig((l_carré[i]) , fill=coul_terre[0])
+                        nombre_terre.append(l_carré[i])
+                        nombre_eau.remove(l_carré[i])
+                        print(counter, "t")
+                        counter = 0
+                
+                if int((l_carré[i]) - 1) % 50 == 0 and int(l_carré[i]) != 2451 and int(l_carré[i]) != 1:
 
-                if (l_carré[i-k]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
-                if (l_carré[i+50]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
-                if (l_carré[i-50]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
-                if (l_carré[i-50-k]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
-                if (l_carré[i+50-k]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
+                    if (l_carré[i+k]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i-50]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i+50]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i-50+k]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i+50+k]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1
+                    
+                    if counter >= T:
+                        counter = 0
+                    if counter < T:
+                        canvas.itemconfig((l_carré[i]) , fill=coul_terre[0])
+                        nombre_terre.append(l_carré[i])
+                        nombre_eau.remove(l_carré[i])
+                        print(counter, "t")
+                        counter = 0
+                
+                if int(l_carré[i]) % 50 == 0 and int(l_carré[i]) > 50 and int(l_carré[i]) < 2450:
 
-            if int((l_carré[i]) - 1) % 50 == 0:
+                    if (l_carré[i-k]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i+50]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i-50]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i-50-k]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i+50-k]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1
 
-                if (l_carré[i+k]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
-                if (l_carré[i-50]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
-                if (l_carré[i+50]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
-                if (l_carré[i-50+k]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
-                if (l_carré[i+50+k]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
+                    if counter >= T:
+                        counter = 0
+                    if counter < T:
+                        canvas.itemconfig((l_carré[i]) , fill=coul_terre[0])
+                        nombre_terre.append(l_carré[i])
+                        nombre_eau.remove(l_carré[i])
+                        print(counter, "t")
+                        counter = 0
+                
 
-            if int((l_carré[i]) - 1) % 50 != 0 and int(l_carré[i]) % 50 != 0 and int(l_carré[i]) < 2450 and int(l_carré[i]) > 50:
-                if (l_carré[i+k]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
-                if (l_carré[i-k]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
-                if (l_carré[i-50]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
-                if (l_carré[i+50]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
-                if (l_carré[i-50+k]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
-                if (l_carré[i+50+k]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
-                if (l_carré[i-50-k]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
-                if (l_carré[i+50-k]) in nombre_eau:
-                    voisins.append(i)
-                    counter += 1
 
-            
-                if counter > 5 and l_carré[i] in nombre_terre:
-                    canvas.itemconfig((l_carré[i]) , fill=coul_eau[0])
-                    nombre_eau.append(l_carré[i])
-                    nombre_terre.remove(l_carré[i])
-                    print(counter)
-                    counter = 0
-                    print(counter)
-                if counter <= 5:
-                    counter = 0
+
+                if int(l_carré[i]) == 2451:
+
+                    if (l_carré[i+k]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i-50]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i-50+k]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1
+
+                    if counter >= T:
+                        counter = 0
+                    if counter < T:
+                        canvas.itemconfig((l_carré[i]) , fill=coul_terre[0])
+                        nombre_terre.append(l_carré[i])
+                        nombre_eau.remove(l_carré[i])
+                        print(counter, "t")
+                        counter = 0
+
+
+                if int(l_carré[i]) > 2450 and int(l_carré[i]) != 2451 and int(l_carré[i]) != 2500:
+
+                    if (l_carré[i+k]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i-k]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i-50]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1                
+                    if (l_carré[i-50-k]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i-50+k]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1
+                    
+                    if counter >= T:
+                        counter = 0
+                    if counter < T:
+                        canvas.itemconfig((l_carré[i]) , fill=coul_terre[0])
+                        nombre_terre.append(l_carré[i])
+                        nombre_eau.remove(l_carré[i])
+                        print(counter, "t")
+                        counter = 0
+
+
+                if int(l_carré[i]) == 2500:
+
+                    if (l_carré[i-k]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i-50]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1               
+                    if (l_carré[i-50-k]) in nombre_eau:
+                        voisins.append(i)
+                        counter += 1
+
+                    if counter >= T:
+                        counter = 0
+                    if counter < T:
+                        canvas.itemconfig((l_carré[i]) , fill=coul_terre[0])
+                        nombre_terre.append(l_carré[i])
+                        nombre_eau.remove(l_carré[i])
+                        print(counter, "t")
+                        counter = 0
+
+            if l_carré[i] in nombre_terre: 
+
+                if int(l_carré[i]) == 1:
+
+                    if (l_carré[i+k]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1                
+                    if (l_carré[i+50]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1                
+                    if (l_carré[i+50+k]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+
+                    if counter >= T:
+                        canvas.itemconfig((l_carré[i]) , fill=coul_eau[0])
+                        nombre_eau.append(l_carré[i])
+                        nombre_terre.remove(l_carré[i])
+                        print(counter, "e")
+                        counter = 0
+                    if counter < T:
+                        counter = 0
+
+                if int(l_carré[i]) < 50 and int(l_carré[i]) != 1:
+
+                    if (l_carré[i+k]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i-k]) in nombre_terre:
+                            voisins.append(i)
+                            counter += 1
+                    if (l_carré[i+50]) in nombre_terre:
+                            voisins.append(i)
+                            counter += 1
+                    if (l_carré[i+50+k]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i+50-k]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+
+                    if counter >= T:
+                        canvas.itemconfig((l_carré[i]) , fill=coul_eau[0])
+                        nombre_eau.append(l_carré[i])
+                        nombre_terre.remove(l_carré[i])
+                        print(counter, "e")
+                        counter = 0
+                    if counter < T:
+                        counter = 0
+
+                if int(l_carré[i]) == 50:
+
+                    if (l_carré[i-k]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1                
+                    if (l_carré[i+50]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1                
+                    if (l_carré[i+50-k]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+
+                    if counter >= T:
+                        canvas.itemconfig((l_carré[i]) , fill=coul_eau[0])
+                        nombre_eau.append(l_carré[i])
+                        nombre_terre.remove(l_carré[i])
+                        print(counter, "e")
+                        counter = 0
+                    if counter < T:
+                        counter = 0
+                
+
+                if int((l_carré[i]) - 1) % 50 != 0 and int(l_carré[i]) % 50 != 0 and int(l_carré[i]) < 2450 and int(l_carré[i]) > 50:
+
+                    if (l_carré[i+k]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i-k]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i-50]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i+50]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i-50+k]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i+50+k]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i-50-k]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i+50-k]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+                    
+                    if counter >= T:
+                        canvas.itemconfig((l_carré[i]) , fill=coul_eau[0])
+                        nombre_eau.append(l_carré[i])
+                        nombre_terre.remove(l_carré[i])
+                        print(counter, "e")
+                        counter = 0
+                    if counter < T:
+                        counter = 0
+                
+                if int((l_carré[i]) - 1) % 50 == 0 and int(l_carré[i]) != 2451 and int(l_carré[i]) != 1:
+
+                    if (l_carré[i+k]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i-50]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i+50]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i-50+k]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i+50+k]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+                    
+                    if counter >= T:
+                        canvas.itemconfig((l_carré[i]) , fill=coul_eau[0])
+                        nombre_eau.append(l_carré[i])
+                        nombre_terre.remove(l_carré[i])
+                        print(counter, "e")
+                        counter = 0
+                    if counter < T:
+                        counter = 0
+                
+                if int(l_carré[i]) % 50 == 0 and int(l_carré[i]) > 50 and int(l_carré[i]) < 2450:
+
+                    if (l_carré[i-k]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i+50]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i-50]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i-50-k]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i+50-k]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+
+                    if counter >= T:
+                        canvas.itemconfig((l_carré[i]) , fill=coul_eau[0])
+                        nombre_eau.append(l_carré[i])
+                        nombre_terre.remove(l_carré[i])
+                        print(counter, "e")
+                        counter = 0
+                    if counter < T:
+                        counter = 0
+                
+
+
+
+                if int(l_carré[i]) == 2451:
+
+                    if (l_carré[i+k]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i-50]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i-50+k]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+
+                    if counter >= T:
+                        canvas.itemconfig((l_carré[i]) , fill=coul_eau[0])
+                        nombre_eau.append(l_carré[i])
+                        nombre_terre.remove(l_carré[i])
+                        print(counter, "e")
+                        counter = 0
+                    if counter < T:
+                        counter = 0
+
+                if int(l_carré[i]) > 2450 and int(l_carré[i]) != 2451 and int(l_carré[i]) != 2500:
+
+                    if (l_carré[i+k]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i-k]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i-50]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1                
+                    if (l_carré[i-50-k]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i-50+k]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+                    
+                    if counter >= T:
+                        canvas.itemconfig((l_carré[i]) , fill=coul_eau[0])
+                        nombre_eau.append(l_carré[i])
+                        nombre_terre.remove(l_carré[i])
+                        print(counter, "e")
+                        counter = 0
+                    if counter < T:
+                        counter = 0
+
+
+                if int(l_carré[i]) == 2500:
+
+                    if (l_carré[i-k]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+                    if (l_carré[i-50]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1               
+                    if (l_carré[i-50-k]) in nombre_terre:
+                        voisins.append(i)
+                        counter += 1
+
+                    if counter >= T:
+                        canvas.itemconfig((l_carré[i]) , fill=coul_eau[0])
+                        nombre_eau.append(l_carré[i])
+                        nombre_terre.remove(l_carré[i])
+                        print(counter, "e")
+                        counter = 0
+                    if counter < T:
+                        counter = 0
 
 def GetColor(r, g, b):
     """ Retourne une couleur à partir de ses composantes r, g, b entre 0 et 255"""
