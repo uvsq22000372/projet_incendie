@@ -22,7 +22,7 @@ COTE = 13
 n = 4
 k = 1
 counter = 0
-T = 6
+T = 5
 
 #definition variables globales 
 nombre_eau = []
@@ -34,6 +34,11 @@ coul_terre = ["salmon4"]
 
 
 #definition des fonctions
+
+#def répétitions(repet):
+    #global n
+    #n = repet
+
 def Carré():
     global nombre_eau
     x0, y0, x1, y1 = 0, 0, COTE, COTE
@@ -470,13 +475,19 @@ def GetColor(r, g, b):
     #
     # 
 
+#ajouter curseurs (repetitions automate = n, distance = k, voisinage = T, probabilité eau = p)
+
 ########################
 # programme principal
-
 racine = tk.Tk()
 racine.title("Generation de terrain")
 # création des widgets
 canvas = tk.Canvas(racine, bg=COUL_FOND, width=LARGEUR, height=HAUTEUR, bd = -2)
+canvas.grid(row=0, column=0, rowspan=2)
+
+#curseur = tk.Scale(orient = "horizontal", command=répétitions, from_=0, to=8, length=100)
+#curseur.set(4)
+#curseur.grid(row=1, column=1)
 
 # positionnement
 canvas.grid()
