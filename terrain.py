@@ -24,6 +24,7 @@ k = 1
 counter = 0
 T = 6
 
+
 #definition variables globales 
 nombre_eau = []
 nombre_terre = []
