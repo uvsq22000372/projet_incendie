@@ -5,6 +5,7 @@
 # Lalasoa RATOVONDRANTO
 # Maxime DANNEVILLE
 # Elias SAUVAGE
+# El Fahad ASSOUMANI
 # https://github.com/uvsq22000372/projet_terrain
 #########################################
 
@@ -19,16 +20,18 @@ COULEUR_QUADR = "grey60"
 LARGEUR = 650
 HAUTEUR = 650
 COTE = 13
-n = 4
+n = 0
 k = 1
 counter = 0
 T = 5
+x = 0
 
 
 #definition variables globales 
 nombre_eau = []
 nombre_terre = []
 l_carré = []
+ListeTropGenial = []
 
 coul_eau = ["RoyalBlue1"]
 coul_terre = ["salmon4"]
@@ -67,7 +70,9 @@ def random_terrain():
             canvas.itemconfig((l_carré[i]) , fill=coul_terre[0])
             nombre_terre.append(l_carré[i])
             nombre_eau.remove(l_carré[i])
-    
+
+def tri():
+    global nombre_terre, nombre_eau
     nombre_terre = sorted(nombre_terre)
     for i in nombre_terre:
         if nombre_terre.count(i) > 1:
@@ -86,6 +91,8 @@ def nombre_voisins():
     global counter
     global nombre_terre
     global nombre_eau
+    global ListeTropGenial
+    global x
     for y in range(0,n):
         for i in range(len(l_carré)):
 
@@ -104,9 +111,7 @@ def nombre_voisins():
                     if counter >= T:
                         counter = 0
                     if counter < T:
-                        canvas.itemconfig((l_carré[i]) , fill=coul_terre[0])
-                        nombre_terre.append(l_carré[i])
-                        nombre_eau.remove(l_carré[i])
+                        ListeTropGenial.append(l_carré[i])
                         counter = 0
 
                 if int(l_carré[i]) < 50 and int(l_carré[i]) != 1:
@@ -125,9 +130,7 @@ def nombre_voisins():
                     if counter >= T:
                         counter = 0
                     if counter < T:
-                        canvas.itemconfig((l_carré[i]) , fill=coul_terre[0])
-                        nombre_terre.append(l_carré[i])
-                        nombre_eau.remove(l_carré[i])
+                        ListeTropGenial.append(l_carré[i])
                         counter = 0
 
                 if int(l_carré[i]) == 50:
@@ -142,9 +145,7 @@ def nombre_voisins():
                     if counter >= T:
                         counter = 0
                     if counter < T:
-                        canvas.itemconfig((l_carré[i]) , fill=coul_terre[0])
-                        nombre_terre.append(l_carré[i])
-                        nombre_eau.remove(l_carré[i])
+                        ListeTropGenial.append(l_carré[i])
                         counter = 0
                 
 
@@ -170,9 +171,7 @@ def nombre_voisins():
                     if counter >= T:
                         counter = 0
                     if counter < T:
-                        canvas.itemconfig((l_carré[i]) , fill=coul_terre[0])
-                        nombre_terre.append(l_carré[i])
-                        nombre_eau.remove(l_carré[i])
+                        ListeTropGenial.append(l_carré[i])
                         counter = 0
                 
                 if int((l_carré[i]) - 1) % 50 == 0 and int(l_carré[i]) != 2451 and int(l_carré[i]) != 1:
@@ -191,9 +190,7 @@ def nombre_voisins():
                     if counter >= T:
                         counter = 0
                     if counter < T:
-                        canvas.itemconfig((l_carré[i]) , fill=coul_terre[0])
-                        nombre_terre.append(l_carré[i])
-                        nombre_eau.remove(l_carré[i])
+                        ListeTropGenial.append(l_carré[i])
                         counter = 0
                 
                 if int(l_carré[i]) % 50 == 0 and int(l_carré[i]) > 50 and int(l_carré[i]) < 2450:
@@ -212,9 +209,7 @@ def nombre_voisins():
                     if counter >= T:
                         counter = 0
                     if counter < T:
-                        canvas.itemconfig((l_carré[i]) , fill=coul_terre[0])
-                        nombre_terre.append(l_carré[i])
-                        nombre_eau.remove(l_carré[i])
+                        ListeTropGenial.append(l_carré[i])
                         counter = 0
                 
 
@@ -232,13 +227,11 @@ def nombre_voisins():
                     if counter >= T:
                         counter = 0
                     if counter < T:
-                        canvas.itemconfig((l_carré[i]) , fill=coul_terre[0])
-                        nombre_terre.append(l_carré[i])
-                        nombre_eau.remove(l_carré[i])
+                        ListeTropGenial.append(l_carré[i])
                         counter = 0
 
 
-                if int(l_carré[i]) > 2450 and int(l_carré[i]) != 2451 and int(l_carré[i]) != 2500:
+                if int(l_carré[i]) >= 2450 and int(l_carré[i]) != 2451 and int(l_carré[i]) != 2500:
 
                     if (l_carré[i+k]) in nombre_eau:
                         counter += 1
@@ -254,9 +247,7 @@ def nombre_voisins():
                     if counter >= T:
                         counter = 0
                     if counter < T:
-                        canvas.itemconfig((l_carré[i]) , fill=coul_terre[0])
-                        nombre_terre.append(l_carré[i])
-                        nombre_eau.remove(l_carré[i])
+                        ListeTropGenial.append(l_carré[i])
                         counter = 0
 
 
@@ -272,10 +263,7 @@ def nombre_voisins():
                     if counter >= T:
                         counter = 0
                     if counter < T:
-                        canvas.itemconfig((l_carré[i]) , fill=coul_terre[0])
-                        nombre_terre.append(l_carré[i])
-                        nombre_eau.remove(l_carré[i])
-                        counter = 0
+                        ListeTropGenial.append(l_carré[i])
 
             if l_carré[i] in nombre_terre: 
 
@@ -289,9 +277,7 @@ def nombre_voisins():
                         counter += 1
 
                     if counter >= T:
-                        canvas.itemconfig((l_carré[i]) , fill=coul_eau[0])
-                        nombre_eau.append(l_carré[i])
-                        nombre_terre.remove(l_carré[i])
+                        ListeTropGenial.append(l_carré[i])
                         counter = 0
                     if counter < T:
                         counter = 0
@@ -310,9 +296,7 @@ def nombre_voisins():
                         counter += 1
 
                     if counter >= T:
-                        canvas.itemconfig((l_carré[i]) , fill=coul_eau[0])
-                        nombre_eau.append(l_carré[i])
-                        nombre_terre.remove(l_carré[i])
+                        ListeTropGenial.append(l_carré[i])
                         counter = 0
                     if counter < T:
                         counter = 0
@@ -327,9 +311,7 @@ def nombre_voisins():
                         counter += 1
 
                     if counter >= T:
-                        canvas.itemconfig((l_carré[i]) , fill=coul_eau[0])
-                        nombre_eau.append(l_carré[i])
-                        nombre_terre.remove(l_carré[i])
+                        ListeTropGenial.append(l_carré[i])
                         counter = 0
                     if counter < T:
                         counter = 0
@@ -355,9 +337,7 @@ def nombre_voisins():
                         counter += 1
                     
                     if counter >= T:
-                        canvas.itemconfig((l_carré[i]) , fill=coul_eau[0])
-                        nombre_eau.append(l_carré[i])
-                        nombre_terre.remove(l_carré[i])
+                        ListeTropGenial.append(l_carré[i])
                         counter = 0
                     if counter < T:
                         counter = 0
@@ -376,9 +356,7 @@ def nombre_voisins():
                         counter += 1
                     
                     if counter >= T:
-                        canvas.itemconfig((l_carré[i]) , fill=coul_eau[0])
-                        nombre_eau.append(l_carré[i])
-                        nombre_terre.remove(l_carré[i])
+                        ListeTropGenial.append(l_carré[i])
                         counter = 0
                     if counter < T:
                         counter = 0
@@ -397,9 +375,7 @@ def nombre_voisins():
                         counter += 1
 
                     if counter >= T:
-                        canvas.itemconfig((l_carré[i]) , fill=coul_eau[0])
-                        nombre_eau.append(l_carré[i])
-                        nombre_terre.remove(l_carré[i])
+                        ListeTropGenial.append(l_carré[i])
                         counter = 0
                     if counter < T:
                         counter = 0
@@ -417,9 +393,7 @@ def nombre_voisins():
                         counter += 1
 
                     if counter >= T:
-                        canvas.itemconfig((l_carré[i]) , fill=coul_eau[0])
-                        nombre_eau.append(l_carré[i])
-                        nombre_terre.remove(l_carré[i])
+                        ListeTropGenial.append(l_carré[i])
                         counter = 0
                     if counter < T:
                         counter = 0
@@ -438,9 +412,7 @@ def nombre_voisins():
                         counter += 1
                     
                     if counter >= T:
-                        canvas.itemconfig((l_carré[i]) , fill=coul_eau[0])
-                        nombre_eau.append(l_carré[i])
-                        nombre_terre.remove(l_carré[i])
+                        ListeTropGenial.append(l_carré[i])
                         counter = 0
                     if counter < T:
                         counter = 0
@@ -456,17 +428,52 @@ def nombre_voisins():
                         counter += 1
 
                     if counter >= T:
-                        canvas.itemconfig((l_carré[i]) , fill=coul_eau[0])
-                        nombre_eau.append(l_carré[i])
-                        nombre_terre.remove(l_carré[i])
+                        ListeTropGenial.append(l_carré[i])
                         counter = 0
                     if counter < T:
                         counter = 0
+
+        ListeTropGenial = sorted(ListeTropGenial)
+        for q in ListeTropGenial:
+            if ListeTropGenial.count(q) > 1:
+                for w in range(0, (ListeTropGenial.count(q) - 1)):
+                    ListeTropGenial.remove(q)
+        
+        for z in range(len(ListeTropGenial)):
+
+            if x == 1:
+                x = 0
+
+            if ListeTropGenial[z] in nombre_terre and x != 1:
+                canvas.itemconfig((ListeTropGenial[z]) , fill=coul_eau[0])
+                nombre_eau.append(ListeTropGenial[z])
+                nombre_terre.remove(ListeTropGenial[z])
+                x = 1
+            
+
+            if ListeTropGenial[z] in nombre_eau and x != 1:
+                canvas.itemconfig((ListeTropGenial[z]) , fill=coul_terre[0])
+                nombre_terre.append(ListeTropGenial[z])
+                nombre_eau.remove(ListeTropGenial[z])
+                x = 1
+            
+            if x == 1:
+                x = 0
+
+                    
+        
+        ListeTropGenial = []
+        tri()
+
 
 def GetColor(r, g, b):
     """ Retourne une couleur à partir de ses composantes r, g, b entre 0 et 255"""
     return '#{:02x}{:02x}{:02x}'.format(r, g, b)
 
+def test(event):
+    global n
+    n += 1
+    nombre_voisins()
 
 
 # Idée a développer plus tard 
@@ -494,7 +501,7 @@ canvas.grid(row=0, column=0, rowspan=2)
 canvas.grid()
 
 # gestion des événements
-canvas.bind("<Button-1>")
+canvas.bind("<Button-1>",test)
 
 # autres fonctions
 Carré()
