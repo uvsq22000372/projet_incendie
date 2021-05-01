@@ -484,6 +484,9 @@ def test(event):
     # 
 
 #ajouter curseurs (repetitions automate = n, distance = k, voisinage = T, probabilité eau = p)
+#ajouter menu 
+#refaire quadrillage (tableau i,j) 
+#deplacement personnage
 
 ########################
 # programme principal
