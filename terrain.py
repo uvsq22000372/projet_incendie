@@ -4,7 +4,7 @@
 # équipe 2
 # Lalasoa RATOVONDRANTO
 # Maxime DANNEVILLE
-# Elias SAUVAGE
+# Elias SAUVAGE 
 # El Fahad ASSOUMANI
 # https://github.com/uvsq22000372/projet_terrain
 #########################################
