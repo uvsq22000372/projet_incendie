@@ -37,6 +37,7 @@ ListeTropGenial = []
 
 coul_eau = ["RoyalBlue1"]
 coul_terre = ["salmon4"]
+coul_bordure =["grey60"]
 
 
 #definition des fonctions
@@ -71,6 +72,7 @@ def creation_terrain():
 
     for i in range(len(l_carré)):
         if  int(l_carré[i]) <= 52 or int(l_carré[i]) > 2652 or int((l_carré[i]) - 1) % 52 == 0 or int(l_carré[i]) % 52 == 0:
+            canvas.itemconfig((l_carré[i]) , fill=coul_bordure[0])
             nombre_eau.remove(l_carré[i])
             bordure.append(l_carré[i])
     
