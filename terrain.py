@@ -197,6 +197,39 @@ def ChangementDeCoul():
     ListeTropGenial = []
     tri()
 
+        ListeTropGenial = sorted(ListeTropGenial)
+        for q in ListeTropGenial:
+            if ListeTropGenial.count(q) > 1:
+                for w in range(0, (ListeTropGenial.count(q) - 1)):
+                    ListeTropGenial.remove(q)
+        
+        for z in range(len(ListeTropGenial)):
+
+            if x == 1:
+                x = 0
+
+            if ListeTropGenial[z] in nombre_terre and x != 1:
+                canvas.itemconfig((ListeTropGenial[z]) , fill=coul_eau[0])
+                nombre_eau.append(ListeTropGenial[z])
+                nombre_terre.remove(ListeTropGenial[z])
+                x = 1
+            
+
+            if ListeTropGenial[z] in nombre_eau and x != 1:
+                canvas.itemconfig((ListeTropGenial[z]) , fill=coul_terre[0])
+                nombre_terre.append(ListeTropGenial[z])
+                nombre_eau.remove(ListeTropGenial[z])
+                x = 1
+            
+            if x == 1:
+                x = 0
+
+                    
+        
+        ListeTropGenial = []
+        tri()
+
+
 def GetColor(r, g, b):
     """ Retourne une couleur à partir de ses composantes r, g, b entre 0 et 255"""
     return '#{:02x}{:02x}{:02x}'.format(r, g, b)
