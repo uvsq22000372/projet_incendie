@@ -35,8 +35,8 @@ l_carré = []
 bordure = []
 ListeTropGenial = []
 
-coul_eau = ["RoyalBlue1"]
-coul_terre = ["salmon4"]
+coul_eau = ["dodgerblue2"]
+coul_terre = ["burlywood3"]
 coul_bordure =["grey60"]
 
 
@@ -197,11 +197,11 @@ def ChangementDeCoul():
     ListeTropGenial = []
     tri()
 
-        ListeTropGenial = sorted(ListeTropGenial)
-        for q in ListeTropGenial:
-            if ListeTropGenial.count(q) > 1:
-                for w in range(0, (ListeTropGenial.count(q) - 1)):
-                    ListeTropGenial.remove(q)
+    ListeTropGenial = sorted(ListeTropGenial)
+    for q in ListeTropGenial:
+        if ListeTropGenial.count(q) > 1:
+            for w in range(0, (ListeTropGenial.count(q) - 1)):
+                ListeTropGenial.remove(q)
         
         for z in range(len(ListeTropGenial)):
 
@@ -223,9 +223,6 @@ def ChangementDeCoul():
             
             if x == 1:
                 x = 0
-
-                    
-        
         ListeTropGenial = []
         tri()
 
