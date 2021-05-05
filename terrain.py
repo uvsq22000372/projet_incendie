@@ -19,8 +19,8 @@ COUL_FOND = "grey20"
 COULEUR_QUADR = "grey60"
 LARGEUR = 676
 HAUTEUR = 676
-COTE = 13
-n = 0
+COTE = LARGEUR // 52
+n = 4
 k = 1
 counter = 0
 T = 5
@@ -37,7 +37,7 @@ ListeTropGenial = []
 
 coul_eau = ["dodgerblue2"]
 coul_terre = ["burlywood3"]
-coul_bordure =["grey60"]
+coul_bordure =["white"]
 
 
 #definition des fonctions
@@ -77,7 +77,7 @@ def creation_terrain():
             bordure.append(l_carré[i])
     
         r = rd.randint(0, 100)
-        print(r)
+        #print(r)
         if r > p*100  and int(l_carré[i]) > 52 and int(l_carré[i]) <= 2652 and int((l_carré[i]) - 1) % 52 != 0 and int(l_carré[i]) % 52 != 0:
             canvas.itemconfig((l_carré[i]) , fill=coul_terre[0])
             nombre_terre.append(l_carré[i])
@@ -99,13 +99,13 @@ def tri():
             
 
 def nombre_voisins():
-    """retourne le nombre de cases autour d'une case i"""
+    """automate, avec definitions du nombres de cases terre/eau dans le voisinage"""
     global counter
     global nombre_terre
     global nombre_eau
     global ListeTropGenial
     global x
-    for y in range(0,n):
+    for y in range(n):
         for i in range(len(l_carré)):
 
 
@@ -164,6 +164,7 @@ def nombre_voisins():
         ChangementDeCoul()
 
 def ChangementDeCoul():
+    """gestion couleur terrain"""
     global ListeTropGenial
     global x
     x = 0
@@ -226,33 +227,25 @@ def ChangementDeCoul():
         ListeTropGenial = []
         tri()
 
+def placement(event):
+    pass
 
-def GetColor(r, g, b):
-    """ Retourne une couleur à partir de ses composantes r, g, b entre 0 et 255"""
-    return '#{:02x}{:02x}{:02x}'.format(r, g, b)
+#def test(event):
+    """test les repetitions de l'automate"""
+    #global n
+    #n += 1
+    #nombre_voisins()
 
-def test(event):
-    global n
-    n += 1
-    nombre_voisins()
-
-
-# Idée a développer plus tard 
-    # if carré x=mort, l_carré.delete[x] (évitez les surcharges)
-    # 
-    # utiliser "in" pour voir si c'est un bloc de terre
-    #
-    # 
 
 #ajouter curseurs (repetitions automate = n, distance = k, voisinage = T, probabilité eau = p)
 #ajouter menu 
-#refaire quadrillage (tableau i,j) 
-#deplacement personnage
+#deplacement personnage (dont deplacement)
 
 ########################
 # programme principal
 racine = tk.Tk()
 racine.title("Generation de terrain")
+
 # création des widgets
 canvas = tk.Canvas(racine, bg=COUL_FOND, width=LARGEUR, height=HAUTEUR, bd = -2)
 canvas.grid(row=0, column=0, rowspan=2)
@@ -265,7 +258,8 @@ canvas.grid(row=0, column=0, rowspan=2)
 canvas.grid()
 
 # gestion des événements
-canvas.bind("<Button-1>",test)
+#canvas.bind("<Button-1>",test)
+canvas.bind("<Button-1>", placement)
 
 # autres fonctions
 Carré()
