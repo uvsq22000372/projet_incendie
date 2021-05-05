@@ -98,7 +98,7 @@ def tri():
                 nombre_eau.remove(i)
             
 
-def nombre_voisins():
+def automate():
     """automate, avec definitions du nombres de cases terre/eau dans le voisinage"""
     global counter
     global nombre_terre
@@ -250,7 +250,7 @@ racine.title("Generation de terrain")
 canvas = tk.Canvas(racine, bg=COUL_FOND, width=LARGEUR, height=HAUTEUR, bd = -2)
 canvas.grid(row=0, column=0, rowspan=2)
 
-#curseur = tk.Scale(orient = "horizontal", command=répétitions, from_=0, to=8, length=100)
+#curseur = tk.Scale(orient = "horizontal", command=nombre_voisins(), from_=0, to=8, length=100)
 #curseur.set(4)
 #curseur.grid(row=1, column=1)
 
@@ -264,7 +264,7 @@ canvas.bind("<Button-1>", placement)
 # autres fonctions
 Carré()
 creation_terrain()
-nombre_voisins()
+automate()
 
 
 
