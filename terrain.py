@@ -5,7 +5,7 @@
 # Lalasoa RATOVONDRANTO
 # Maxime DANNEVILLE
 # Elias SAUVAGE 
-# El Fahad ASSOUMANI
+# El Fahad ASSOUMANI (absent)
 # https://github.com/uvsq22000372/projet_terrain
 #########################################
 
@@ -13,19 +13,13 @@
 import tkinter as tk
 import random as rd
 
-#definition constantes
 
+#definition constantes
 COUL_FOND = "grey20"
 COULEUR_QUADR = "grey60"
-LARGEUR = 676
-HAUTEUR = 676
-COTE = LARGEUR // 52
-n = 4
-k = 1
-counter = 0
-T = 5
-p = 0.5
-x = 0
+coul_eau = ["dodgerblue2"]
+coul_terre = ["burlywood3"]
+coul_bordure =["white"]
 
 
 #definition variables globales 
@@ -33,33 +27,30 @@ nombre_eau = []
 nombre_terre = []
 l_carré = []
 bordure = []
-coords_carre = []
-coords_terre = []
-coords_eau = []
-coords_bordure= []
 ListeTropGenial = []
-
-
-coul_eau = ["dodgerblue2"]
-coul_terre = ["burlywood3"]
-coul_bordure =["white"]
+mouv_sauv = []
+LARGEUR = 676
+HAUTEUR = LARGEUR
+COTE = LARGEUR // 52
+n = 4
+k = 1
+counter = 0
+T = 5
+p = 0.5
+x = 0
+c = 0
+lgt1 = 0
 
 
 #definition des fonctions
 
-#def répétitions(repet):
-    #global n
-    #n = repet
-
 def Carré():
     global nombre_eau
-    global coords_eau
     x0, y0, x1, y1 = 0, 0, COTE, COTE
     while y0 < HAUTEUR and x1 <= LARGEUR:
         carré = canvas.create_rectangle(x0, y0, x1, y1,fill=coul_eau[0], width = 0)
         l_carré.append(carré)
         nombre_eau.append(carré)
-        coords_eau.append(canvas.coords(carré))
         x0 += COTE
         x1 += COTE
         if x0 == LARGEUR:
@@ -68,23 +59,18 @@ def Carré():
             y0 += COTE
             y1 += COTE
 
+
 def creation_terrain():
-    global nombre_terre, nombre_eau, bordure,  coords_eau, coords_terre, coords_bordure
+    global nombre_terre, nombre_eau, bordure
 
     for i in range(len(l_carré)):
         if  int(l_carré[i]) <= 52 or int(l_carré[i]) > 2652 or int((l_carré[i]) - 1) % 52 == 0 or int(l_carré[i]) % 52 == 0:
             canvas.itemconfig((l_carré[i]) , fill=coul_bordure[0])
-            nombre_eau.remove(l_carré[i])
-            coords_eau.remove(canvas.coords(l_carré[i]))
             bordure.append(l_carré[i])
-            coords_bordure.append(canvas.coords(l_carré[i]))
     
         r = rd.randint(0, 100)
-        #print(r)
         if r > p*100  and int(l_carré[i]) > 52 and int(l_carré[i]) <= 2652 and int((l_carré[i]) - 1) % 52 != 0 and int(l_carré[i]) % 52 != 0:
             canvas.itemconfig((l_carré[i]) , fill=coul_terre[0])
-            coords_eau.remove(canvas.coords(l_carré[i]))
-            coords_terre.append(canvas.coords(l_carré[i]))
             nombre_eau.remove(l_carré[i])
             nombre_terre.append(l_carré[i])
             
@@ -103,31 +89,31 @@ def tri():
             for y in range(0, (nombre_eau.count(i) - 1)):
                 nombre_eau.remove(i)
 
+
 def Bonhomme():
+    global c
     lgt = 0
     dx = COTE
     dy = COTE
-    bonhomme = canvas.create_oval(0,0, COTE, COTE,fill="red", width=0)
     while lgt != 1:
         for i in range(len(l_carré)):
             if l_carré[i] in nombre_terre:
-                x0, y0, x1, y1 = coords_terre[i] 
-                bonhomme = canvas.create_oval(0,0, COTE, COTE,fill="red", width=0)
-                lgt = 0
+                x0, y0, x1, y1 = canvas.coords(l_carré[i]) 
+                bonhomme = canvas.create_oval(x0,y0, x1, y1,fill="red", width=0)
+                c = i
+                lgt = 1
                 break
-
     return [bonhomme, dx, dy]
             
 
 def automate():
     """automate, avec definitions du nombres de cases terre/eau dans le voisinage"""
     global counter, nombre_terre, nombre_eau, ListeTropGenial, x
-
+    canvas.delete(automate)
     for y in range(n):
         for i in range(len(l_carré)):
 
-
-            if l_carré[i] in nombre_terre:            
+            if l_carré[i] in nombre_terre: 
 
                 if int(l_carré[i]) > 52 and int(l_carré[i]) <= 2652 and int((l_carré[i]) - 1) % 52 != 0 and int(l_carré[i]) % 52 != 0:
 
@@ -155,7 +141,6 @@ def automate():
 
             if l_carré[i] in nombre_eau: 
 
-
                 if int(l_carré[i]) > 52 and int(l_carré[i]) <= 2652 and int((l_carré[i]) - 1) % 52 != 0 and int(l_carré[i]) % 52 != 0:
 
                     if (l_carré[i+k]) in nombre_terre:
@@ -180,6 +165,8 @@ def automate():
                     if counter < T:
                         counter = 0
         ChangementDeCoul()
+    print(n)
+
 
 def ChangementDeCoul():
     """gestion couleur terrain"""
@@ -191,7 +178,6 @@ def ChangementDeCoul():
             for w in range(0, (ListeTropGenial.count(q) - 1)):
                 ListeTropGenial.remove(q)
 
-
     for i in range(len(ListeTropGenial)):
 
         if x == 1:
@@ -199,8 +185,6 @@ def ChangementDeCoul():
 
         if ListeTropGenial[i] in nombre_terre and x != 1:
             canvas.itemconfig((ListeTropGenial[i]) , fill=coul_eau[0])
-            coords_terre.remove(canvas.coords(ListeTropGenial[i]))
-            coords_eau.append(canvas.coords(ListeTropGenial[i]))
             nombre_eau.append(ListeTropGenial[i])
             nombre_terre.remove(ListeTropGenial[i])
             x = 1
@@ -208,8 +192,6 @@ def ChangementDeCoul():
 
         if ListeTropGenial[i] in nombre_eau and x != 1:
             canvas.itemconfig((ListeTropGenial[i]) , fill=coul_terre[0])
-            coords_eau.remove(canvas.coords(ListeTropGenial[i]))
-            coords_terre.append(canvas.coords(ListeTropGenial[i]))
             nombre_terre.append(ListeTropGenial[i])
             nombre_eau.remove(ListeTropGenial[i])
             x = 1
@@ -232,17 +214,12 @@ def ChangementDeCoul():
 
             if ListeTropGenial[z] in nombre_terre and x != 1:
                 canvas.itemconfig((ListeTropGenial[z]) , fill=coul_eau[0])
-                coords_terre.remove(canvas.coords(ListeTropGenial[z]))
-                coords_eau.append(canvas.coords(ListeTropGenial[z]))
                 nombre_eau.append(ListeTropGenial[z])
                 nombre_terre.remove(ListeTropGenial[z])
                 x = 1
             
-
             if ListeTropGenial[z] in nombre_eau and x != 1:
                 canvas.itemconfig((ListeTropGenial[z]) , fill=coul_terre[0])
-                coords_eau.remove(canvas.coords(ListeTropGenial[i]))
-                coords_terre.append(canvas.coords(ListeTropGenial[i]))
                 nombre_terre.append(ListeTropGenial[z])
                 nombre_eau.remove(ListeTropGenial[z])
                 x = 1
@@ -252,61 +229,158 @@ def ChangementDeCoul():
         ListeTropGenial = []
         tri()
 
+
 def deplacementHaut(event):
-    x0, y0, x1, y1 = canvas.coords(bonhomme[0])
-    # if x0 + COTE = or 
-    canvas.move(bonhomme[0], 0, -bonhomme[2])
+    global c 
+    if l_carré[c - 52 ] in nombre_terre:
+        canvas.move(bonhomme[0], 0, -bonhomme[2])
+        c -= 52
+        mouv_sauv.append("z")
     
 
 def deplacementBas(event):
-    canvas.move(bonhomme[0], 0, bonhomme[2])
-    print("r")
+    global c 
+    if l_carré[c + 52] in nombre_terre:
+        canvas.move(bonhomme[0], 0, bonhomme[2])
+        c += 52
+        mouv_sauv.append("s")
+
 
 def deplacementGauche(event):
-    canvas.move(bonhomme[0], -bonhomme[1],0)
+    global c
+    if l_carré[c - 1] in nombre_terre:
+        canvas.move(bonhomme[0], -bonhomme[1],0)
+        c -= 1
+        mouv_sauv.append("q")
+
 
 def deplacementDroite(event):
-    canvas.move(bonhomme[0], bonhomme[1],0)
+    global c
+    if l_carré[c + 1] in nombre_terre:
+        canvas.move(bonhomme[0], bonhomme[1],0)
+        c += 1
+        mouv_sauv.append("d")
 
 
-#def test(event):
-    """test les repetitions de l'automate"""
-    #global n
-    #n += 1
+def PlacementSouris(event):
+    global bonhomme
+    global c
+    global lgt1
+
+    I = str(canvas.find_closest(event.x, event.y))
+    i = int(I[I.find('(') + 1 : I.find( ',')])
+
+    dx = COTE
+    dy = COTE
+
+    if lgt1 == 1 and l_carré[i - 1] in nombre_terre:
+        x0, y0, x1, y1 = canvas.coords(l_carré[i - 1]) 
+        bonhomme = canvas.create_oval(x0,y0, x1, y1,fill="red", width=0)
+        bonhomme = [bonhomme, dx, dy]
+        c = i - 1
+        lgt1 = 0
+
+    if bonhomme != []:
+        if i == bonhomme[0] and lgt1 != 1:
+            canvas.delete(bonhomme[0])
+            bonhomme = []
+            lgt1 += 1
+    else:
+        pass
+    
+
+def RetourArriere():
+    global c
+    global bonhomme
+    global mouv_sauv
+
+    if mouv_sauv == []:
+        pass
+
+    elif mouv_sauv[-1] == "z":
+        canvas.move(bonhomme[0], 0, bonhomme[2])
+        c += 52
+        del mouv_sauv[-1]
+    elif mouv_sauv[-1] == "q":
+        canvas.move(bonhomme[0], bonhomme[1],0)
+        c += 1
+        del mouv_sauv[-1]
+    elif mouv_sauv[-1] == "s":
+        canvas.move(bonhomme[0], 0, -bonhomme[2])
+        c -= 52
+        del mouv_sauv[-1]
+    elif mouv_sauv[-1] == "d":
+        canvas.move(bonhomme[0], -bonhomme[1],0)
+        c -= 1
+        del mouv_sauv[-1]
+
+
+#def f_global():
+    #global counter, nombre_terre, nombre_eau, ListeTropGenial, x, c, bonhomme, mouv_sauv, lgt1, bordure
+    #canvas.delete("all")
+    #Carré()
+    #creation_terrain()
     #automate()
+    #bonhomme = Bonhomme()
+
 
 
 #ajouter curseurs (repetitions automate = n, distance = k, voisinage = T, probabilité eau = p)
-#ajouter menu 
-#deplacement personnage (dont deplacement)
 
 ########################
 # programme principal
 racine = tk.Tk()
 racine.title("Generation de terrain")
+texte_nombre_répétitions = tk.Label (text = "nombre répétitions", font = "1")
+texte_nombre_répétitions.grid(row=1, column=1)
+texte_proba_eau = tk.Label (text = "proba eau", font = "1")
+texte_proba_eau.grid(row=11, column=1)
+texte_nombre_eau = tk.Label (text = "nombre eau", font = "1")
+texte_nombre_eau.grid(row=21, column=1)
+texte_distance_moore = tk.Label (text = "distance Moore", font = "1")
+texte_distance_moore.grid(row=31, column=1)
+texte_dimensions = tk.Label (text = "dimensions terrain", font = "1")
+texte_dimensions.grid(row=41, column=1)
 
 # création des widgets
 canvas = tk.Canvas(racine, bg=COUL_FOND, width=LARGEUR, height=HAUTEUR, bd = -2)
-canvas.grid(row=0, column=0, rowspan=2)
+canvas.grid(row=0, column=0, rowspan=50)
 
-#curseur = tk.Scale(orient = "horizontal", command=automate(), from_=0, to=8, length=100)
-#curseur.set(4)
-#curseur.grid(row=1, column=1)
+BoutonRetour = tk.Button(racine, text = "Retour", command=RetourArriere, fg = "white", bg = "black", font = ("helvetica", "10"))
 
 # positionnement
 canvas.grid()
-# appels de fonctions
+BoutonRetour.grid(row=49, column=1)
+
+
+# appels de fonctions et curseurs
+curseur_dimensions = tk.Scale(orient = "horizontal", variable=LARGEUR, from_=52, to=1040, resolution=52, length=100)
+curseur_dimensions.set(676)
+curseur_dimensions.grid(row=42, column=1)
+curseur_nombre_eau = tk.Scale(orient = "horizontal", variable=T, from_=0, to=8, length=100)
+curseur_nombre_eau.set(5)
+curseur_nombre_eau.grid(row=22, column=1)
+curseur_distance_moore = tk.Scale(orient = "horizontal", variable=k, from_=1, to=10, length=100)
+curseur_distance_moore.set(1)
+curseur_distance_moore.grid(row=32, column=1)
+curseur_proba_eau = tk.Scale(orient = "horizontal", variable=p, from_=0, to=1, resolution=0.05, length=100)
+curseur_proba_eau.set(0.5)
+curseur_proba_eau.grid(row=12, column=1)
 Carré()
 creation_terrain()
-automate()
+curseur_nombre_repetitions = tk.Scale(orient = "horizontal", variable=n, command=automate(), from_=0, to=8, length=100)
+curseur_nombre_repetitions.set(4)
+curseur_nombre_repetitions.grid(row=2, column=1)
 bonhomme = Bonhomme()
 
+
 # gestion des événements
-#canvas.bind("<Button-1>",test)
 racine.bind("z", deplacementHaut)
 racine.bind("s", deplacementBas)
 racine.bind("q", deplacementGauche)
 racine.bind("d", deplacementDroite)
+racine.bind('<Button-1>', PlacementSouris)
+
 
 # boucle principal
 racine.mainloop()
