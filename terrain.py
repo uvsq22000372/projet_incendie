@@ -12,7 +12,6 @@
 #import librairies
 import tkinter as tk
 import random as rd
-from tkinter.constants import COMMAND
 
 
 #definition constantes
@@ -52,8 +51,8 @@ nb_bonhomme = 0
 
 #definition des fonctions
 
-def Carré():
-    """création d'un terrain aléatoire initial"""
+def Carre():
+    """création de carré d'eau pour la taille du terrain  initial"""
     global nombre_eau
     x0, y0, x1, y1 = 0, 0, COTE, COTE
     while y0 < HAUTEUR and x1 <= LARGEUR:
@@ -70,7 +69,8 @@ def Carré():
 
 
 def creation_terrain():
-    """modification terrain selon probabilité de présence de l'eau"""
+    """creation du terrain avec les cases d'eau et de terre selon 
+        la probabilité de présence de l'eau, ainsi qu'une bordure"""
     global nombre_terre, nombre_eau, bordure
 
     for i in range(len(l_carré)):
@@ -81,13 +81,15 @@ def creation_terrain():
     
         r = rd.randint(0, 100)
         if (r > p*100  and int(l_carré[i]) > l + rep and int(l_carré[i]) <= (l**2 - l) 
-                + rep and int((l_carré[i]) - 1) % l - nb_bonhomme != 0 and int(l_carré[i]) % l - nb_bonhomme != 0):
+                + rep and int((l_carré[i]) - 1) % l - nb_bonhomme != 0 and 
+                int(l_carré[i]) % l - nb_bonhomme != 0):
             canvas.itemconfig((l_carré[i]) , fill=coul_terre[0])
             nombre_eau.remove(l_carré[i])
             nombre_terre.append(l_carré[i])
             
 
 def tri():
+    """tri les fonctions (normalement pas nécessaire, est au cas où)"""
     global nombre_terre, nombre_eau
     nombre_terre = sorted(nombre_terre)
     for i in nombre_terre:
@@ -131,7 +133,8 @@ def automate():
             if l_carré[i] in nombre_terre: 
 
                 if (int(l_carré[i]) > l + rep and int(l_carré[i]) <= (l**2 - l) + rep and 
-                        int((l_carré[i]) - 1) % l - nb_bonhomme != 0 and int(l_carré[i]) % l - nb_bonhomme != 0):
+                    int((l_carré[i]) - 1) % l - nb_bonhomme != 0 and int(l_carré[i]) % l 
+                    - nb_bonhomme != 0):
 
                     if (l_carré[i+k]) in nombre_eau:
                         counter += 1
@@ -158,7 +161,8 @@ def automate():
             if l_carré[i] in nombre_eau: 
 
                 if (int(l_carré[i]) > l + rep and int(l_carré[i]) <= (l**2 - l) + rep and 
-                        int((l_carré[i]) - 1) % l - nb_bonhomme != 0 and int(l_carré[i]) % l - nb_bonhomme != 0):
+                        int((l_carré[i]) - 1) % l - nb_bonhomme != 0 and 
+                        int(l_carré[i]) % l - nb_bonhomme != 0):
                     if (l_carré[i+k]) in nombre_terre:
                         counter += 1
                     if (l_carré[i-k]) in nombre_terre:
@@ -181,11 +185,10 @@ def automate():
                     if counter < T:
                         counter = 0
         ChangementDeCoul()
-    print(n)
 
 
 def ChangementDeCoul():
-    """gestion couleur terrain"""
+    """réutilise ce qu'à donner l'automate et change chaque case ciblé en son inverse"""
     global ListeTropGenial, x
     x = 0
     ListeTropGenial = sorted(ListeTropGenial)
@@ -247,7 +250,7 @@ def ChangementDeCoul():
 
 
 def deplacementHaut(event):
-    """gestion déplacement vers le haut"""
+    """déplacement vers le haut"""
     global c 
     if l_carré[c - 52 ] in nombre_terre:
         canvas.move(bonhomme[0], 0, -bonhomme[2])
@@ -256,7 +259,7 @@ def deplacementHaut(event):
     
 
 def deplacementBas(event):
-    """gestion déplacement vers le bas"""
+    """déplacement vers le bas"""
     global c 
     if l_carré[c + 52] in nombre_terre:
         canvas.move(bonhomme[0], 0, bonhomme[2])
@@ -265,7 +268,7 @@ def deplacementBas(event):
 
 
 def deplacementGauche(event):
-    """gestion déplacement vers la gauche"""
+    """déplacement vers la gauche"""
     global c
     if l_carré[c - 1] in nombre_terre:
         canvas.move(bonhomme[0], -bonhomme[1],0)
@@ -274,7 +277,7 @@ def deplacementGauche(event):
 
 
 def deplacementDroite(event):
-    """gestion déplacement vers la droite"""
+    """déplacement vers la droite"""
     global c
     if l_carré[c + 1] in nombre_terre:
         canvas.move(bonhomme[0], bonhomme[1],0)
@@ -315,7 +318,7 @@ def PlacementSouris(event):
     
 
 def RetourArriere():
-    """Création du retour en arrière"""
+    """retour en arrière a l'aide d'une liste de sauvegarde des mouvement."""
     global c
     global bonhomme
     global mouv_sauv
@@ -341,9 +344,10 @@ def RetourArriere():
         del mouv_sauv[-1]
 
 
-def f_global():
-    global counter, nombre_terre, nombre_eau, l_carré, x, c, bonhomme, mouv_sauv
-    global lgt1, bordure, n, k, p, T, LARGEUR, HAUTEUR, rep, z, l, b
+def Redemarrage():
+    """Fonction qui redémarre le programme avec les nouvels valeur des curseurs. """
+    global counter, nombre_terre, nombre_eau, l_carré, bonhomme, mouv_sauv
+    global lgt1, bordure, n, k, p, T, LARGEUR, HAUTEUR, rep, z, l, b, x, c
 
     canvas.delete("all")
 
@@ -352,7 +356,7 @@ def f_global():
     l_carré = []
     bordure = []
     mouv_sauv = []
-    bonhomme =[]
+    bonhomme = []
 
     nb_case = 50
     COTE = 13
@@ -371,12 +375,31 @@ def f_global():
     b = 2 * k
     l = nb_case + b
 
-    Carré()
+    Carre()
     creation_terrain()
     automate()
     bonhomme = Bonhomme()
 
-#Ajouter sauvegarde du programme
+
+def sauvegarder():
+    """Sauvegarde les valeurs du tableau dans le fichier sauvegarde.txt"""
+    fic = open("sauvegarde_terrain.txt", "w")
+    fic.write(str(nombre_terre) + '\n' + '\n')
+    fic.write(str(nombre_eau) + '\n' + '\n')
+    fic.write(str(l_carré))
+    fic.close()
+
+
+def charger():
+    """Charger le fichier sauvegarde_terrain.txt pour modifier le terrain"""
+    #fic = open("sauvegarde_terrain.txt", "r")
+    #canvas.delete("all")
+    #Carre()
+    #for i in range(len(l_carré)):
+        #if l_carré[i] in nombre_terre[i]:
+            #print("yes")
+    pass
+
 
 ########################
 # programme principal
@@ -388,7 +411,9 @@ texte_nombre_répétitions.grid(row=1, column=1)
 
 # texte et boutons 
 BoutonRetour = tk.Button(racine, text = "Retour", command=RetourArriere, fg = "white", bg = "black", font = ("helvetica", "10"))
-BoutonRestart = tk.Button(racine,text = "Redémarrer", command = f_global, fg = "white", bg = "black", font = ("helvetica, 10") )
+BoutonRestart = tk.Button(racine,text = "Redémarrer", command = Redemarrage, fg = "white", bg = "black", font = ("helvetica, 10"))
+bout_sauv = tk.Button(racine, text="sauvegarder", command=sauvegarder, fg = "white", bg = "black", font = ("helvetica, 10"))
+bout_charge = tk.Button(racine, text="charger", command=charger, fg = "white", bg = "black", font = ("helvetica, 10"))
 
 
 texte_proba_eau = tk.Label (text = "proba eau", font = "1")
@@ -397,7 +422,7 @@ texte_proba_eau.grid(row=11, column=1)
 texte_nombre_eau = tk.Label (text = "nombre eau", font = "1")
 texte_nombre_eau.grid(row=21, column=1)
 
-# texte des curseurs optionnel 
+# texte des curseurs optionnel (liés aux curseurs optionnels)
 
 # texte_distance_moore = tk.Label (text = "distance Moore", font = "1")
 # texte_distance_moore.grid(row=41, column=1)
@@ -410,12 +435,11 @@ texte_nombre_eau.grid(row=21, column=1)
 canvas = tk.Canvas(racine, bg=COUL_FOND, width=LARGEUR, height=HAUTEUR, bd = -2)
 canvas.grid(row=0, column=0, rowspan=50)
 
-BoutonRetour = tk.Button(racine, text = "Retour", command=RetourArriere, fg = "white", bg = "black", font = ("helvetica", "10"))
-BoutonRestart = tk.Button(racine,text = "Redémarrer", command = f_global, fg = "white", bg = "black", font = ("helvetica, 10"))
-
 
 # positionnement
 canvas.grid()
+bout_sauv.grid(row=42, column=1)
+bout_charge.grid(row=39, column=1)
 BoutonRetour.grid(row=45, column=1)
 BoutonRestart.grid(row=48, column=1)
 
@@ -426,7 +450,7 @@ curseur_nombre_eau.set(5)
 curseur_nombre_eau.grid(row=22, column=1)
 
 
-curseur_proba_eau = tk.Scale(orient = "horizontal", variable=p, from_=0.35, to=0.65, resolution=0.01, length=100)
+curseur_proba_eau = tk.Scale(orient = "horizontal", variable=p, from_=0.10, to=0.90, resolution=0.01, length=100)
 curseur_proba_eau.set(0.5)
 curseur_proba_eau.grid(row=12, column=1)
 
@@ -447,7 +471,7 @@ curseur_nombre_repetitions.grid(row=2, column=1)
 
 
 # appels de fonctions
-Carré()
+Carre()
 creation_terrain()
 automate()
 bonhomme = Bonhomme()
