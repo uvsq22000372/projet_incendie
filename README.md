@@ -21,6 +21,10 @@ Le changer de position remet a zéro son déplacement de sauvegarde.
 
 ##### Deux autres boutons permettent de sauvegarder le terrain actuel, et de charger le dernier terrain sauvegardé. (La sauvegarde fonctionne, mais nous n'avons pas réussi à faire fonctionner la recharge.)
 
+il aurait fallut créer une fonction qui lit pour une première variable ou liste jusqu’à ce qu'elle rencontre un espace, et ensuite passe a la suivante (comme les listes sont
+trop longues, on ne peut pas faire de lecture ligne par ligne). Après avoir les paramètres, il faut transformer chaque liste en leur carré respectif, donc pour la liste des
+cases terre, on les transforme en cases de terre, etc, tout en tenant compte de leur coordonnées (qui sont lié a leur tags, car il représente leur ordre de création.)
+
 Les 3 curseurs permettent de faire varier les paramètres du programme :
 
 	Il y a le nombre de répétitions de l'automate (notée "nombre répétitions"), 
