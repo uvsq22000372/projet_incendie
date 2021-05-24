@@ -380,13 +380,20 @@ def Redemarrage():
     automate()
     bonhomme = Bonhomme()
 
-
 def sauvegarder():
     """Sauvegarde les valeurs du tableau dans le fichier sauvegarde.txt"""
     fic = open("sauvegarde_terrain.txt", "w")
-    fic.write(str(nombre_terre) + '\n' + '\n')
-    fic.write(str(nombre_eau) + '\n' + '\n')
-    fic.write(str(l_carré))
+    fic.write(str(nombre_terre) + '\n')
+    fic.write(str(nombre_eau) + '\n')
+    fic.write(str(l_carré) + '\n')
+    fic.write(str(bonhomme) + '\n')
+    fic.write(str(bordure) + '\n')
+    fic.write(str(mouv_sauv) + '\n')
+    fic.write(str(n) + '\n')
+    fic.write(str(p) + '\n')
+    fic.write(str(T) + '\n')
+    fic.write(str(k))
+
     fic.close()
 
 
