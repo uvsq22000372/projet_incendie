@@ -53,6 +53,7 @@ nb_bonhomme = 0
 #definition des fonctions
 
 def Carré():
+    """création d'un terrain aléatoire initial"""
     global nombre_eau
     x0, y0, x1, y1 = 0, 0, COTE, COTE
     while y0 < HAUTEUR and x1 <= LARGEUR:
@@ -69,15 +70,18 @@ def Carré():
 
 
 def creation_terrain():
+    """modification terrain selon probabilité de présence de l'eau"""
     global nombre_terre, nombre_eau, bordure
 
     for i in range(len(l_carré)):
-        if  int(l_carré[i]) <= l + rep or int(l_carré[i]) > (l**2 - l) + rep or int((l_carré[i]) - 1) % l - nb_bonhomme == 0 or int(l_carré[i]) % l - nb_bonhomme == 0:
+        if  (int(l_carré[i]) <= l + rep or int(l_carré[i]) > (l**2 - l) + rep or int((l_carré[i]) - 1) % l 
+                - nb_bonhomme == 0 or int(l_carré[i]) % l - nb_bonhomme == 0):
             canvas.itemconfig((l_carré[i]) , fill=coul_bordure[0])
             bordure.append(l_carré[i])
     
         r = rd.randint(0, 100)
-        if r > p*100  and int(l_carré[i]) > l + rep and int(l_carré[i]) <= (l**2 - l) + rep and int((l_carré[i]) - 1) % l - nb_bonhomme != 0 and int(l_carré[i]) % l - nb_bonhomme != 0:
+        if (r > p*100  and int(l_carré[i]) > l + rep and int(l_carré[i]) <= (l**2 - l) 
+                + rep and int((l_carré[i]) - 1) % l - nb_bonhomme != 0 and int(l_carré[i]) % l - nb_bonhomme != 0):
             canvas.itemconfig((l_carré[i]) , fill=coul_terre[0])
             nombre_eau.remove(l_carré[i])
             nombre_terre.append(l_carré[i])
@@ -99,6 +103,7 @@ def tri():
 
 
 def Bonhomme():
+    """création du personnage, défini par un cercle rouge"""
     global c
     global nb_bonhomme
     lgt = 0
@@ -125,7 +130,8 @@ def automate():
 
             if l_carré[i] in nombre_terre: 
 
-                if int(l_carré[i]) > l + rep and int(l_carré[i]) <= (l**2 - l) + rep and int((l_carré[i]) - 1) % l - nb_bonhomme != 0 and int(l_carré[i]) % l - nb_bonhomme != 0:
+                if (int(l_carré[i]) > l + rep and int(l_carré[i]) <= (l**2 - l) + rep and 
+                        int((l_carré[i]) - 1) % l - nb_bonhomme != 0 and int(l_carré[i]) % l - nb_bonhomme != 0):
 
                     if (l_carré[i+k]) in nombre_eau:
                         counter += 1
@@ -151,7 +157,8 @@ def automate():
 
             if l_carré[i] in nombre_eau: 
 
-                if int(l_carré[i]) > l + rep and int(l_carré[i]) <= (l**2 - l) + rep and int((l_carré[i]) - 1) % l - nb_bonhomme != 0 and int(l_carré[i]) % l - nb_bonhomme != 0:
+                if (int(l_carré[i]) > l + rep and int(l_carré[i]) <= (l**2 - l) + rep and 
+                        int((l_carré[i]) - 1) % l - nb_bonhomme != 0 and int(l_carré[i]) % l - nb_bonhomme != 0):
                     if (l_carré[i+k]) in nombre_terre:
                         counter += 1
                     if (l_carré[i-k]) in nombre_terre:
@@ -240,6 +247,7 @@ def ChangementDeCoul():
 
 
 def deplacementHaut(event):
+    """gestion déplacement vers le haut"""
     global c 
     if l_carré[c - 52 ] in nombre_terre:
         canvas.move(bonhomme[0], 0, -bonhomme[2])
@@ -248,6 +256,7 @@ def deplacementHaut(event):
     
 
 def deplacementBas(event):
+    """gestion déplacement vers le bas"""
     global c 
     if l_carré[c + 52] in nombre_terre:
         canvas.move(bonhomme[0], 0, bonhomme[2])
@@ -256,6 +265,7 @@ def deplacementBas(event):
 
 
 def deplacementGauche(event):
+    """gestion déplacement vers la gauche"""
     global c
     if l_carré[c - 1] in nombre_terre:
         canvas.move(bonhomme[0], -bonhomme[1],0)
@@ -264,6 +274,7 @@ def deplacementGauche(event):
 
 
 def deplacementDroite(event):
+    """gestion déplacement vers la droite"""
     global c
     if l_carré[c + 1] in nombre_terre:
         canvas.move(bonhomme[0], bonhomme[1],0)
@@ -272,6 +283,7 @@ def deplacementDroite(event):
 
 
 def PlacementSouris(event):
+    """Placement du personnage"""
     global bonhomme
     global c
     global lgt1
@@ -303,6 +315,7 @@ def PlacementSouris(event):
     
 
 def RetourArriere():
+    """Création du retour en arrière"""
     global c
     global bonhomme
     global mouv_sauv
@@ -329,7 +342,8 @@ def RetourArriere():
 
 
 def f_global():
-    global counter, nombre_terre, nombre_eau, l_carré, x, c, bonhomme, mouv_sauv, lgt1, bordure, n, k, p, T, LARGEUR, HAUTEUR, rep, z, l, b
+    global counter, nombre_terre, nombre_eau, l_carré, x, c, bonhomme, mouv_sauv
+    global lgt1, bordure, n, k, p, T, LARGEUR, HAUTEUR, rep, z, l, b
 
     canvas.delete("all")
 
@@ -362,6 +376,7 @@ def f_global():
     automate()
     bonhomme = Bonhomme()
 
+#Ajouter sauvegarde du programme
 
 ########################
 # programme principal
@@ -415,7 +430,7 @@ curseur_proba_eau = tk.Scale(orient = "horizontal", variable=p, from_=0.35, to=0
 curseur_proba_eau.set(0.5)
 curseur_proba_eau.grid(row=12, column=1)
 
-curseur_nombre_repetitions = tk.Scale(orient = "horizontal", variable=n, from_=0, to=8, length=100)
+curseur_nombre_repetitions = tk.Scale(orient = "horizontal", variable=n, from_=0, to=10, length=100)
 curseur_nombre_repetitions.set(4)
 curseur_nombre_repetitions.grid(row=2, column=1)
 
@@ -430,8 +445,8 @@ curseur_nombre_repetitions.grid(row=2, column=1)
 # curseur_distance_moore.set(1)
 # curseur_distance_moore.grid(row=42, column=1)
 
-# appels de fonctions
 
+# appels de fonctions
 Carré()
 creation_terrain()
 automate()
